@@ -5,10 +5,7 @@ table {
     font-family: sans-serif;
 }
 
-th {
-    text-align: left;
-}
-
 td {
-    width: 10%
+    width: 10%;
+    text-align: center;
 }

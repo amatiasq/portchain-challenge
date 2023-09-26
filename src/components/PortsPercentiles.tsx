@@ -59,12 +59,32 @@ function SinglePortPercentiles({
     return percentiles.map((x) => getPercentil(sortedPortCalls, x));
   }, [port, percentiles]);
 
+  const columns = countRepeatedValues(portCallsToDisplay);
+
   return (
     <tr>
       <th>{port.name}</th>
-      {portCallsToDisplay.map((portCall, index) => (
-        <td key={percentiles[index]}>{formatDuration(portCall.duration)}</td>
+      {columns.map(({ value, count }, index) => (
+        <td key={percentiles[index]} colSpan={count}>
+          {formatDuration(value.duration)}
+        </td>
       ))}
     </tr>
   );
+}
+
+function countRepeatedValues<T>(values: T[]): { value: T; count: number }[] {
+  const result: { value: T; count: number }[] = [];
+
+  for (const value of values) {
+    const last = result.at(-1);
+
+    if (last && last.value === value) {
+      last.count++;
+    } else {
+      result.push({ value, count: 1 });
+    }
+  }
+
+  return result;
 }
