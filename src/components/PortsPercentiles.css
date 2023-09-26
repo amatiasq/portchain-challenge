@@ -1,0 +1,14 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    width: 10%
+}

@@ -1,0 +1,10 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  column-gap: 3rem;
+
+  grid-template-areas:
+    "top-left top-right"
+    "bottom bottom";
+}

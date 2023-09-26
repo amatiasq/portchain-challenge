@@ -1,0 +1,11 @@
+.ports-with-most-calls {
+  grid-area: top-left;
+}
+
+.ports-with-fewest-calls {
+  grid-area: top-right;
+}
+
+.all-ports {
+  grid-area: bottom;
+}
