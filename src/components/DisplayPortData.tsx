@@ -11,12 +11,12 @@ export function DisplayPortData({ portData }: { portData: PortData[] }) {
   );
 
   const portsWithMostCalls = useMemo(
-    () => sortedPorts.slice(0, 5),
+    () => sortedPorts.slice(0, 5).map(portDataToSortedListItem),
     [sortedPorts]
   );
 
   const portsWithFewestCalls = useMemo(
-    () => sortedPorts.slice(-5),
+    () => sortedPorts.slice(-5).map(portDataToSortedListItem),
     [sortedPorts]
   );
 
@@ -26,30 +26,13 @@ export function DisplayPortData({ portData }: { portData: PortData[] }) {
         className="ports-with-most-calls"
         title="Ports with most calls"
         items={portsWithMostCalls}
-      >
-        {/*
-          This function doesn't need to be passed as children to SortedList
-          it could be part of it as it's identical for both lists
-          but I'm keeping it here to show the use of generic props
-        */}
-        {(port) => (
-          <li key={port.id}>
-            {port.name} ({port.portCalls.length})
-          </li>
-        )}
-      </SortedList>
+      />
 
       <SortedList
         className="ports-with-fewest-calls"
         title="Ports with fewest calls"
         items={portsWithFewestCalls}
-      >
-        {(port) => (
-          <li key={port.id}>
-            {port.name} ({port.portCalls.length})
-          </li>
-        )}
-      </SortedList>
+      />
 
       <PortsPercentiles
         className="all-ports"
@@ -58,4 +41,11 @@ export function DisplayPortData({ portData }: { portData: PortData[] }) {
       />
     </>
   );
+
+  function portDataToSortedListItem(portData: PortData) {
+    return {
+      id: portData.id,
+      label: `${portData.name} (${portData.portCalls.length})`,
+    };
+  }
 }

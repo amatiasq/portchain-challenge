@@ -31,7 +31,7 @@ describe('Percentiles component', () => {
       {(x) => x.value}
     </Percentiles>;
 
-    // @ts-expect-error This should fail because getter is required
+    // @ts-expect-error This should fail because children renderer is required
     <Percentiles
       data={[{ value: 8 }]}
       percentiles={[50]}
