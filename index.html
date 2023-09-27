@@ -1,13 +1,91 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React + TS</title>
+
+  <style>
+    #root {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      column-gap: 3rem;
+
+      grid-template-areas:
+        "top-left top-right"
+        "bottom bottom";
+    }
+
+    @keyframes loader {
+      0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+
+      100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+      }
+    }
+
+    loading-spinner {
+      grid-area: bottom;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    loading-spinner .container {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    loading-spinner .container .ripple {
+      position: absolute;
+      border: 4px solid #fff;
+      opacity: 1;
+      border-radius: 50%;
+      animation: loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+    loading-spinner .container .ripple-2 {
+      animation-delay: -0.5s;
+    }
+  </style>
+
+  <template id="loading-spinner">
+    <!-- From https://amatiasq.com/experiments/loader/ -->
+    <loading-spinner>
+      <div class="container">
+        <div class="ripple"></div>
+        <div class="ripple ripple2"></div>
+      </div>
+    </loading-spinner>
+  </template>
+</head>
+
+<body>
+  <div id="root">
+    <loading-spinner>
+      <div class="container">
+        <div class="ripple"></div>
+        <div class="ripple ripple2"></div>
+      </div>
+    </loading-spinner>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
