@@ -12,6 +12,8 @@ describe('Percentiles component', () => {
       </Table>
     );
 
+    // FIXME: Property 'toHaveTextContent' does not exist on type 'Matchers<void, HTMLElement> & SnapshotMatchers<void, HTMLElement> & Inverse<JestMatchers<void, HTMLElement>> & PromiseMatchers<...>'.
+    // @ts-expect-error This can be fixed by extending the Matchers type
     expect(screen.getByRole('cell')).toHaveTextContent('4');
   });
 
