@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
 import { PortData } from '../data-source/loadPortData';
 import { formatDuration } from '../util/formatDuration';
-import { getPercentil } from '../util/getPercentil';
+import { Percentiles } from './Percentiles';
 import './PortsPercentiles.css';
 
 interface PortsPercentilesProps {
@@ -51,40 +50,16 @@ function SinglePortPercentiles({
   port: PortData;
   percentiles: number[];
 }) {
-  const portCallsToDisplay = useMemo(() => {
-    const sortedPortCalls = port.portCalls.sort(
-      (a, b) => a.duration - b.duration
-    );
-
-    return percentiles.map((x) => getPercentil(sortedPortCalls, x));
-  }, [port, percentiles]);
-
-  const columns = countRepeatedValues(portCallsToDisplay);
-
   return (
     <tr>
       <th>{port.name}</th>
-      {columns.map(({ value, count }, index) => (
-        <td key={percentiles[index]} colSpan={count}>
-          {formatDuration(value.duration)}
-        </td>
-      ))}
+      <Percentiles
+        data={port.portCalls}
+        percentiles={percentiles}
+        getter={(portCall) => portCall.duration}
+      >
+        {(portCall) => formatDuration(portCall.duration)}
+      </Percentiles>
     </tr>
   );
-}
-
-function countRepeatedValues<T>(values: T[]): { value: T; count: number }[] {
-  const result: { value: T; count: number }[] = [];
-
-  for (const value of values) {
-    const last = result.at(-1);
-
-    if (last && last.value === value) {
-      last.count++;
-    } else {
-      result.push({ value, count: 1 });
-    }
-  }
-
-  return result;
 }

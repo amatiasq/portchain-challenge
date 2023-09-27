@@ -1,3 +1,6 @@
+// TODO: Consider returning multiple units
+//      e.g. 1h 30m instead of 1.5h
+
 export function formatDuration(duration: number, decimals = 0) {
   const seconds = duration / 1000;
 
